@@ -25,9 +25,19 @@ SHA-256 for `lyricscord 26.1.jar`:
 2EC03F627AB627F9B028AEE84529A89F85C17B82C8B29BF076C57DE3D8BD0AEC
 ```
 
-## Building from source
+## building from source
 
-The repository currently contains the recovered Java source and resources, but does not yet include a Gradle wrapper or dependency lockfile. A reproducible source build cannot be documented until that build configuration is added.
+you can't build this from source with one command yet because the repo does not have the Gradle project files (`build.gradle`, `gradlew`, or `gradle.properties`) in it yet.
+
+once those files are added, the build command will be:
+
+```powershell
+git clone https://github.com/neo067982-star/neon-lyrics.git
+cd neon-lyrics
+.\gradlew.bat build
+```
+
+the finished JAR will be in `build/libs/`.
 
 ## License
 
