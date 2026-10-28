@@ -177,12 +177,12 @@ public final class LyricsProvider {
            }
            // Group syllable fragments into source words for display while
            // retaining the full timing interval of the grouped word.
-           List<String> words = new ArrayList<>(); List<Long> times = new ArrayList<>(); List<Long> ends = new ArrayList<>();
+           List<String> words = new ArrayList<>(); List<Long> times = new ArrayList<>(); List<Long> ends = new ArrayList<>(); List<Boolean> wordBackground = new ArrayList<>();
            for (int fi = 0; fi < fragments.size(); fi++) {
               boolean boundary = fi == 0 || background.get(fi) || background.get(fi - 1)
                  || Character.isWhitespace(fragments.get(fi - 1).charAt(fragments.get(fi - 1).length() - 1));
               if (boundary) {
-                 words.add(fragments.get(fi).trim()); times.add(fragmentTimes.get(fi)); ends.add(fragmentEnds.get(fi));
+                 words.add(fragments.get(fi).trim()); times.add(fragmentTimes.get(fi)); ends.add(fragmentEnds.get(fi)); wordBackground.add(background.get(fi));
               } else {
                  int wi = words.size() - 1;
                  words.set(wi, words.get(wi) + fragments.get(fi).trim());
@@ -191,6 +191,18 @@ public final class LyricsProvider {
            }
           if (text != null && time >= 0) {
               String rebuilt = displayText(text);
+              if (!words.isEmpty()) {
+                 List<String> foreground = new ArrayList<>(); List<String> backing = new ArrayList<>();
+                 for (int wi = 0; wi < words.size(); wi++) {
+                    String word = words.get(wi).trim();
+                    if (word.isEmpty()) continue;
+                    if (wordBackground.get(wi)) backing.add(word); else foreground.add(word);
+                 }
+                 String lead = String.join(" ", foreground).trim();
+                 String bg = String.join(" ", backing).trim();
+                 if (!bg.isEmpty()) rebuilt = lead.isEmpty() ? "(" + bg + ")" : lead + " (" + bg + ")";
+                 else if (!lead.isEmpty()) rebuilt = lead;
+              }
               out.add(new NowPlaying.Line(time, rebuilt, words.toArray(new String[0]), times.isEmpty() ? null : toLongs(times), ends.isEmpty() ? null : toLongs(ends)));
           }
       }
