@@ -110,13 +110,24 @@ public final class LyricsProvider {
       }
       if (best == null || !best.has("isrc")) return null;
       String isrc = best.get("isrc").getAsString();
-      Http.Response ttml = Http.get(LRC_RED + "/s/" + enc(isrc) + ".ttml", Map.of(
-         "User-Agent", "NeonLyricsHUD/2.1 (+https://lrc.red)"
-      ));
+      Map<String, String> lrcHeaders = Map.of("User-Agent", "NeonLyricsHUD/2.1 (+https://lrc.red)");
+      Http.Response metadata = Http.get(LRC_RED + "/s/" + enc(isrc) + ".json", lrcHeaders);
+      if (metadata.code() == 200 && !metadata.body().isBlank()) {
+         JsonObject track = JsonParser.parseString(metadata.body()).getAsJsonObject();
+         String sync = string(track, "sync");
+         if (sync == null || !"word".equalsIgnoreCase(sync)) {
+            // lrc.red generates word timing asynchronously. If this fails,
+            // the normal line-timed TTML/LRC fallback below still works.
+            try {
+               Http.empty("POST", LRC_RED + "/s/" + enc(isrc) + "/sync", lrcHeaders);
+            } catch (Exception ignored) {
+               // Keep using the line-synced response and local interpolation.
+            }
+         }
+      }
+      Http.Response ttml = Http.get(LRC_RED + "/s/" + enc(isrc) + ".ttml?t=" + System.currentTimeMillis(), lrcHeaders);
       if (ttml.code() == 200 && !ttml.body().isBlank()) return parseTtml(ttml.body());
-      Http.Response lrc = Http.get(LRC_RED + "/s/" + enc(isrc) + ".lrc", Map.of(
-         "User-Agent", "NeonLyricsHUD/2.1 (+https://lrc.red)"
-      ));
+      Http.Response lrc = Http.get(LRC_RED + "/s/" + enc(isrc) + ".lrc", lrcHeaders);
       return lrc.code() == 200 && !lrc.body().isBlank() ? parse(lrc.body()) : null;
    }
 
