@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "neonlyrics",
-  "version": "2.1.0+mc26.1",
+  "version": "${version}",
   "name": "Lyrics Cord",
   "description": "Spotify-Lyrics in 3D im Himmel, 15 Himmel mit Wetter, Leiste oben und Glas-Hotbar. Client-only.",
   "authors": [
@@ -17,7 +17,7 @@
   },
   "depends": {
     "fabricloader": ">=0.17.3",
-    "minecraft": "26.1",
+    "minecraft": "${minecraft_version}",
     "java": ">=25",
     "fabric-api": "*"
   },
