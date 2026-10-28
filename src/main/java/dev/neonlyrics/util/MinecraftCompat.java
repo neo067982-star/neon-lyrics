@@ -4,6 +4,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.renderer.state.level.SkyRenderState;
 import org.joml.Vector3f;
@@ -28,6 +29,12 @@ public final class MinecraftCompat {
             throw new IllegalStateException("Unable to access the keyboard input type", error);
          }
       }
+   }
+
+   public static boolean primaryMouseButton(MouseButtonEvent event) {
+      String version = Minecraft.getInstance().getLaunchedVersion();
+      int primary = version != null && version.startsWith("26.3") ? 1 : 0;
+      return event.button() == primary;
    }
 
    public static void setSkyColor(SkyRenderState state, int color) {

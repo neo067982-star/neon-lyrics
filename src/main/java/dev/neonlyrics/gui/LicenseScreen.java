@@ -5,6 +5,7 @@ import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.config.Config;
 import dev.neonlyrics.config.Storage;
 import dev.neonlyrics.hud.Gfx;
+import dev.neonlyrics.util.MinecraftCompat;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -84,7 +85,7 @@ public class LicenseScreen extends Screen {
    }
 
    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-      if (event.button() == 0) {
+      if (MinecraftCompat.primaryMouseButton(event)) {
          double mx = event.x();
          double my = event.y();
          if (mx >= this.px && my >= this.py && mx < this.px + this.pw && my < this.py + this.ph) {

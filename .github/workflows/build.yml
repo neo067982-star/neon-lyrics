@@ -64,7 +64,7 @@ jobs:
           -Ploader_version=${{ matrix.loader }}
           -Ploom_version=${{ matrix.loom }}
           -Pfabric_api_version=${{ matrix.fabric_api }}
-          -Pmod_version=2.1.3+mc${{ matrix.minecraft }}
+          -Pmod_version=2.1.4+mc${{ matrix.minecraft }}
           -Parchives_base_name=lyricscord-${{ matrix.minecraft }}
 
       - name: upload ${{ matrix.minecraft }} jars

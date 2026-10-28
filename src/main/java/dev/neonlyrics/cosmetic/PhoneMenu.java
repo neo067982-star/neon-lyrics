@@ -11,8 +11,6 @@ import org.joml.Matrix4f;
 // $VF: Compiled from PhoneMenu.java
 public final class PhoneMenu {
    private static WorldPanel panel;
-   private static boolean attackHeld;
-   private static boolean useHeld;
 
    private PhoneMenu() {
    }
@@ -35,8 +33,6 @@ public final class PhoneMenu {
 
    public static void closeNow() {
       panel = null;
-      attackHeld = false;
-      useHeld = false;
    }
 
    public static void menuClosed() {
@@ -58,32 +54,13 @@ public final class PhoneMenu {
 
    public static void startTick(Minecraft mc) {
       if (panel != null && MinecraftCompat.screen(mc) == null && panel.hovered()) {
-         boolean attackDown = mc.options.keyAttack.isDown();
-         boolean useDown = mc.options.keyUse.isDown();
-         boolean attackClick = mc.options.keyAttack.consumeClick();
-         boolean useClick = mc.options.keyUse.consumeClick();
-         if (attackDown && !attackHeld) {
-            attackClick = true;
-         }
-
-         if (useDown && !useHeld) {
-            useClick = true;
-         }
-
-         attackHeld = attackDown;
-         useHeld = useDown;
-         while (attackClick) {
+         while (mc.options.keyAttack.consumeClick()) {
             panel.click();
-            attackClick = false;
          }
 
-         while (useClick) {
+         while (mc.options.keyUse.consumeClick()) {
             panel.click();
-            useClick = false;
          }
-      } else {
-         attackHeld = mc.options.keyAttack.isDown();
-         useHeld = mc.options.keyUse.isDown();
       }
    }
 

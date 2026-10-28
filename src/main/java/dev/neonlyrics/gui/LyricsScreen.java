@@ -2212,7 +2212,7 @@ public class LyricsScreen extends Screen {
          return true;
       }
 
-      if (this.closeTime < 0L && event.button() == 0) {
+      if (this.closeTime < 0L && MinecraftCompat.primaryMouseButton(event)) {
          double ex = event.x() / this.S;
          double ey = event.y() / this.S;
 

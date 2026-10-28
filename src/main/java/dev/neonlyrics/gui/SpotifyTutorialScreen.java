@@ -508,7 +508,7 @@ public class SpotifyTutorialScreen extends Screen {
          return true;
       }
 
-      if (event.button() != 0) {
+      if (!MinecraftCompat.primaryMouseButton(event)) {
          return false;
       }
 
