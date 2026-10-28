@@ -1,4 +1,4 @@
-# lyricscord
+# lyrics cord
 > they were charging for a vibecoded mod so here you go :sob:
 
 26.1, 26.1.1, 26.1.2, 26.2 and 26.3 with some extra fixes and features (almost everything u see is stock i just added a lyrics source)
