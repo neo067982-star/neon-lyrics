@@ -301,7 +301,9 @@ public final class WorldSky {
          }
 
          if (c.lyricsStyle == 1) {
-            boolean var10006 = !skyOpen || c.lyricsUnderground;
+            // Custom sky geometry can leave a depth value in front of the words.
+            // Floating lyrics are a HUD-like overlay, so keep them visible over it.
+            boolean var10006 = !skyOpen || c.lyricsUnderground || p != null;
             FloatWords.renderWorld(mc, c, buffers, base, ctx.levelState().cameraRenderState.pos, pt, var10006);
          }
 
