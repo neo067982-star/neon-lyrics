@@ -13,16 +13,16 @@
 
 1. install Fabric Loader for Minecraft `26.1`.
 2. install Fabric API.
-3. dl `lyricscord 26.1.jar` from the [Releases](../../releases) page.
+3. dl `lyricscord-2.1.0+mc26.1.jar` from the [Releases](../../releases) page.
 4. put the JAR in your Minecraft `mods` folder.
 5. launch Minecraft with the mod.
 
 ## hash since its not a virus
 
-SHA-256 for `lyricscord 26.1.jar`:
+SHA-256 for `lyricscord-2.1.0+mc26.1.jar`:
 
 ```text
-2EC03F627AB627F9B028AEE84529A89F85C17B82C8B29BF076C57DE3D8BD0AEC
+D94EA86FA4791B6AA644E0263C4D7EE4EE334C59DF2100D69572421FDED65D80
 ```
 
 ## building from source
