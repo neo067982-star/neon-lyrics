@@ -362,7 +362,9 @@ public final class FloatWords {
          boolean glow = c.lyricsGlow && AutoPerf.allow(3);
          int q = AutoPerf.quality();
          int glowN = q <= 0 ? 0 : (q == 1 ? 2 : 3);
-         DisplayMode mode = through ? DisplayMode.SEE_THROUGH : DisplayMode.NORMAL;
+         // Floating lyrics are an overlay and must not be depth-tested against
+         // the custom sky or other background geometry.
+         DisplayMode mode = DisplayMode.SEE_THROUGH;
          double yr = Math.toRadians(mc.player.getViewYRot(pt));
          double pr = Math.toRadians(mc.player.getViewXRot(pt));
          double vfx = -Math.sin(yr) * Math.cos(pr);
