@@ -1,5 +1,7 @@
 package dev.neonlyrics.hud;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.License;
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.config.Config;
@@ -18,7 +20,7 @@ public final class Crosshair {
       return (g, delta) -> {
          Config c = NeonLyrics.cfg();
          Minecraft mc = Minecraft.getInstance();
-         if (c.crosshair > 0 && License.ok() && mc.player != null && mc.options.getCameraType().isFirstPerson() && !mc.options.hideGui) {
+         if (c.crosshair > 0 && License.ok() && mc.player != null && mc.options.getCameraType().isFirstPerson() && !MinecraftCompat.guiHidden(mc)) {
             draw(g, c);
          } else {
             original.extractRenderState(g, delta);

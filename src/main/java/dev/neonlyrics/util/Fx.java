@@ -42,8 +42,7 @@ public final class Fx {
    public static void info(String text) {
       Minecraft mc = Minecraft.getInstance();
       if (mc.gui != null) {
-         mc.gui
-            .getChat()
+         MinecraftCompat.chat(mc)
             .addClientSystemMessage(
                Component.literal("[Lyrics Cord] ").withStyle(ChatFormatting.AQUA).append(Component.literal(text).withStyle(ChatFormatting.WHITE))
             );
@@ -53,8 +52,7 @@ public final class Fx {
    public static void error(String text) {
       Minecraft mc = Minecraft.getInstance();
       if (mc.gui != null) {
-         mc.gui
-            .getChat()
+         MinecraftCompat.chat(mc)
             .addClientSystemMessage(
                Component.literal("[Lyrics Cord] ").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.literal(text).withStyle(ChatFormatting.RED))
             );

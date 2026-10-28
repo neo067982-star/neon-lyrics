@@ -1,5 +1,7 @@
 package dev.neonlyrics.gui;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.compat.Compat;
 import dev.neonlyrics.config.Config;
@@ -2201,7 +2203,7 @@ public class LyricsScreen extends Screen {
    private void openTutorial() {
       c().spotifyClientId = this.idBox.getValue().trim();
       NeonLyrics.saveConfig();
-      this.minecraft.setScreen(new SpotifyTutorialScreen(new LyricsScreen(LyricsScreen.Page.SPOTIFY)));
+      MinecraftCompat.setScreen(this.minecraft, new SpotifyTutorialScreen(new LyricsScreen(LyricsScreen.Page.SPOTIFY)));
    }
 
    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {

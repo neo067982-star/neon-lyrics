@@ -1,5 +1,7 @@
 package dev.neonlyrics;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.InputConstants.Type;
 import dev.neonlyrics.config.Config;
@@ -95,8 +97,8 @@ public final class NeonLyrics implements ClientModInitializer {
    private void tick(Minecraft mc) {
       if (!License.ok()) {
          while (keyMenu.consumeClick()) {
-            if (mc.screen == null) {
-               mc.setScreen(new LicenseScreen());
+            if (MinecraftCompat.screen(mc) == null) {
+               MinecraftCompat.setScreen(mc, new LicenseScreen());
             }
          }
 
@@ -107,7 +109,7 @@ public final class NeonLyrics implements ClientModInitializer {
 
          if (!licenseHint && mc.player != null) {
             licenseHint = true;
-            mc.gui.getChat().addClientSystemMessage(Component.translatable("neonlyrics.lic.chat"));
+            MinecraftCompat.chat(mc).addClientSystemMessage(Component.translatable("neonlyrics.lic.chat"));
          }
       } else {
          AutoPerf.tick(mc);
@@ -116,7 +118,7 @@ public final class NeonLyrics implements ClientModInitializer {
          SkyRenderer.tick(mc);
 
          while (keyMenu.consumeClick()) {
-            if (mc.screen == null) {
+            if (MinecraftCompat.screen(mc) == null) {
                PhoneMenu.open(mc);
             }
          }
@@ -142,7 +144,7 @@ public final class NeonLyrics implements ClientModInitializer {
          }
 
          while (keyClip.consumeClick()) {
-            mc.options.hideGui = !mc.options.hideGui;
+            MinecraftCompat.toggleGuiHidden(mc);
          }
 
          while (keyProfile.consumeClick()) {

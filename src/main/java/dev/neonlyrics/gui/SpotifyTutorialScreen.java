@@ -1,5 +1,7 @@
 package dev.neonlyrics.gui;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.compat.Compat;
 import dev.neonlyrics.config.Config;
@@ -550,7 +552,7 @@ public class SpotifyTutorialScreen extends Screen {
       c.spotifyClientId = this.idBox.getValue().trim();
       c.spotifyTutorialSeen = true;
       NeonLyrics.saveConfig();
-      this.minecraft.setScreen(this.parent);
+      MinecraftCompat.setScreen(this.minecraft, this.parent);
    }
 
    public boolean isPauseScreen() {

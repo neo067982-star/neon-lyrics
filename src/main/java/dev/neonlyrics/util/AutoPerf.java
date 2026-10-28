@@ -93,7 +93,7 @@ public final class AutoPerf {
          lastCheck = now;
          Config c = NeonLyrics.cfg();
          lastFps = mc.getFps();
-         if (c.autoPerf && mc.level != null && mc.player != null && mc.screen == null) {
+         if (c.autoPerf && mc.level != null && mc.player != null && MinecraftCompat.screen(mc) == null) {
             int t = target();
             if (lastFps < t * 0.92) {
                lowTicks++;

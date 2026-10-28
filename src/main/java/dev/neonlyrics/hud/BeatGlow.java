@@ -1,5 +1,7 @@
 package dev.neonlyrics.hud;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.License;
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.config.Config;
@@ -25,7 +27,7 @@ public final class BeatGlow {
          float dt = Math.min(0.1F, (float)(now - last) / 1.0E9F);
          last = now;
          NowPlaying np = SpotifyClient.now();
-         float beat = c.beatGlow && np.playing && !mc.options.hideGui ? np.beatPulse(np.progressNow(c.lyricsOffsetMs)) : 0.0F;
+         float beat = c.beatGlow && np.playing && !MinecraftCompat.guiHidden(mc) ? np.beatPulse(np.progressNow(c.lyricsOffsetMs)) : 0.0F;
          level = beat > level ? beat : level + (beat - level) * (1.0F - (float)Math.exp(-5.0F * dt));
          if (!(level < 0.02F)) {
             float old = Gfx.alpha;

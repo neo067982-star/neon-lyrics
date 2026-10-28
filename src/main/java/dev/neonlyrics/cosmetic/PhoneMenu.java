@@ -1,5 +1,7 @@
 package dev.neonlyrics.cosmetic;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.compat.MultiBufferSource;
 import dev.neonlyrics.gui.LyricsScreen;
@@ -25,7 +27,7 @@ public final class PhoneMenu {
       } else if (interactive() && mc.level != null && mc.player != null) {
          panel = new WorldPanel(mc);
       } else {
-         mc.setScreen(new LyricsScreen());
+         MinecraftCompat.setScreen(mc, new LyricsScreen());
       }
    }
 
@@ -51,7 +53,7 @@ public final class PhoneMenu {
    }
 
    public static void startTick(Minecraft mc) {
-      if (panel != null && mc.screen == null && panel.hovered()) {
+      if (panel != null && MinecraftCompat.screen(mc) == null && panel.hovered()) {
          while (mc.options.keyAttack.consumeClick()) {
             panel.click();
          }

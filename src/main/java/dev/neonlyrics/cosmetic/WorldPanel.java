@@ -1,5 +1,7 @@
 package dev.neonlyrics.cosmetic;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.compat.Buffers;
@@ -96,7 +98,7 @@ final class WorldPanel {
    }
 
    WorldPanel(Minecraft mc) {
-      Camera cam = mc.gameRenderer.getMainCamera();
+      Camera cam = MinecraftCompat.mainCamera(mc);
       Vector3fc f = cam.forwardVector();
       double fl = Math.sqrt(f.x() * f.x() + f.z() * f.z());
       float fx = fl < 1.0E-4 ? 0.0F : (float)(f.x() / fl);
@@ -216,7 +218,7 @@ final class WorldPanel {
    }
 
    void render(Minecraft mc, MultiBufferSource buffers, Matrix4f base) {
-      Camera cam = mc.gameRenderer.getMainCamera();
+      Camera cam = MinecraftCompat.mainCamera(mc);
       this.aim(cam);
       long ns = System.nanoTime();
       this.dt = Math.min(0.1F, (float)(ns - this.lastNs) / 1.0E9F);
@@ -395,7 +397,7 @@ final class WorldPanel {
       this.hits.add(new WorldPanel.Hit(346.0F - nw, 6.0F, nw, 15.0F, () -> {
          cf.menuMode = 0;
          PhoneMenu.closeNow();
-         mc.setScreen(new LyricsScreen());
+         MinecraftCompat.setScreen(mc, new LyricsScreen());
       }));
       float tabW = 37.0F;
 
@@ -542,7 +544,7 @@ final class WorldPanel {
       this.toggle(2, tr("clock"), cf.showClock, () -> cf.showClock = !cf.showClock, a);
       this.option("m0", 206.0F, 114.0F, 160.0F, 15.0F, "↗  " + tr("bigmenu"), false, () -> {
          PhoneMenu.closeNow();
-         mc.setScreen(new LyricsScreen());
+         MinecraftCompat.setScreen(mc, new LyricsScreen());
       }, a);
       this.option("m1", 206.0F, 132.0F, 160.0F, 15.0F, "☄  " + tr("random"), false, SkyPreset::shuffle, a);
       this.option("m2", 206.0F, 150.0F, 160.0F, 15.0F, "↺  " + tr("backnormal"), false, () -> {

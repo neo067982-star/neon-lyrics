@@ -1,5 +1,7 @@
 package dev.neonlyrics.sky;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.License;
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.config.Config;
@@ -157,7 +159,7 @@ public final class SkyRenderer {
    public static void render(GuiGraphicsExtractor g, DeltaTracker delta) {
       if (License.ok()) {
          Minecraft mc = Minecraft.getInstance();
-         if (!mc.options.hideGui && mc.player != null && mc.level != null) {
+         if (!MinecraftCompat.guiHidden(mc) && mc.player != null && mc.level != null) {
             Config c = NeonLyrics.cfg();
             long nowNs = System.nanoTime();
             float dt = Math.min(0.1F, (float)(nowNs - lastNanos) / 1.0E9F);

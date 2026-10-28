@@ -1,5 +1,7 @@
 package dev.neonlyrics.hud;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.License;
 import dev.neonlyrics.NeonLyrics;
 import dev.neonlyrics.config.Config;
@@ -48,8 +50,8 @@ public final class Island {
       if (License.ok()) {
          Minecraft mc = Minecraft.getInstance();
          Config c = NeonLyrics.cfg();
-         if (!mc.options.hideGui && mc.player != null && c.islandEnabled) {
-            if (!(mc.screen instanceof LyricsScreen)) {
+         if (!MinecraftCompat.guiHidden(mc) && mc.player != null && c.islandEnabled) {
+            if (!(MinecraftCompat.screen(mc) instanceof LyricsScreen)) {
                AutoPerf.begin();
 
                try {

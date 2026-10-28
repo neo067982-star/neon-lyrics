@@ -1,5 +1,7 @@
 package dev.neonlyrics.sky;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import dev.neonlyrics.compat.MultiBufferSource;
 import dev.neonlyrics.compat.TextDraw;
 import dev.neonlyrics.config.Config;
@@ -64,7 +66,7 @@ public final class FloatWords {
 
    public static void renderWorld(Minecraft mc, Config c, MultiBufferSource buffers, Matrix4f base, Vec3 cam, float pt, boolean through) {
       if (mc != null && c != null && base != null && cam != null) {
-         if (c.lyricsSky && c.lyricsStyle == 1 && !mc.options.hideGui && mc.player != null && mc.level != null) {
+         if (c.lyricsSky && c.lyricsStyle == 1 && !MinecraftCompat.guiHidden(mc) && mc.player != null && mc.level != null) {
             long now = System.currentTimeMillis();
             boolean live = false;
             NowPlaying np = SpotifyClient.now();

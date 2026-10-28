@@ -1,5 +1,7 @@
 package dev.neonlyrics.sky;
 
+import dev.neonlyrics.util.MinecraftCompat;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.neonlyrics.License;
@@ -183,7 +185,7 @@ public final class WorldSky {
          float dt = Math.min(0.1F, (float)(nowNs - lastNanos) / 1.0E9F);
          lastNanos = nowNs;
          float pt = mc.getDeltaTracker().getGameTimeDeltaPartialTick(false);
-         Camera mainCam = mc.gameRenderer.getMainCamera();
+         Camera mainCam = MinecraftCompat.mainCamera(mc);
          camYaw = mainCam.yRot();
          camPitch = mainCam.xRot();
          double y = Math.toRadians(camYaw);
