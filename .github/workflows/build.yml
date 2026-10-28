@@ -17,15 +17,30 @@ jobs:
       matrix:
         include:
           - minecraft: '26.1'
-            loader: '0.18.4'
+            loader: '0.20.1'
             loom: '1.15.3'
             fabric_api: '0.145.1+26.1'
             gradle: '9.4.0'
+          - minecraft: '26.1.1'
+            loader: '0.20.1'
+            loom: '1.15.3'
+            fabric_api: '0.145.4+26.1.1'
+            gradle: '9.4.0'
+          - minecraft: '26.1.2'
+            loader: '0.20.1'
+            loom: '1.15.3'
+            fabric_api: '0.155.3+26.1.2'
+            gradle: '9.4.0'
           - minecraft: '26.2'
-            loader: '0.19.3'
+            loader: '0.20.1'
             loom: '1.17.1'
             fabric_api: '0.151.0+26.2'
             gradle: '9.5.1'
+          - minecraft: '26.3'
+            loader: '0.20.1'
+            loom: '1.19-SNAPSHOT'
+            fabric_api: '0.162.0+26.3'
+            gradle: '9.8.0'
 
     steps:
       - name: checkout

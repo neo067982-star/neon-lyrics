@@ -1,6 +1,5 @@
 package dev.neonlyrics.hud;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import dev.neonlyrics.NeonLyrics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -277,7 +276,7 @@ public final class Gfx {
                try {
                   int col = argb(rgb, a);
                   int n = rq * 2;
-                  RenderPipeline pipe = RenderPipelines.GUI_TEXTURED;
+                  var pipe = RenderPipelines.GUI_TEXTURED;
                   if (iw == n && ih == n) {
                      g.blit(pipe, id, x0, y0, 0.0F, 0.0F, n, n, n, n, col);
                   } else {

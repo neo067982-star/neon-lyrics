@@ -4,6 +4,9 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.screens.Screen;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.renderer.state.level.SkyRenderState;
+import org.joml.Vector3f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -13,6 +16,34 @@ public final class MinecraftCompat {
    private static boolean guiHidden;
 
    private MinecraftCompat() {
+   }
+
+   public static InputConstants.Type keyType() {
+      try {
+         return (InputConstants.Type) InputConstants.Type.class.getField("KEYSYM").get(null);
+      } catch (ReflectiveOperationException ignored) {
+         try {
+            return (InputConstants.Type) InputConstants.Type.class.getField("KEYBOARD").get(null);
+         } catch (ReflectiveOperationException error) {
+            throw new IllegalStateException("Unable to access the keyboard input type", error);
+         }
+      }
+   }
+
+   public static void setSkyColor(SkyRenderState state, int color) {
+      try {
+         Field field = state.getClass().getField("skyColor");
+         if (field.getType() == int.class) {
+            field.setInt(state, color);
+         } else {
+            float r = ((color >> 16) & 255) / 255.0F;
+            float g = ((color >> 8) & 255) / 255.0F;
+            float b = (color & 255) / 255.0F;
+            field.set(state, new Vector3f(r, g, b));
+         }
+      } catch (ReflectiveOperationException error) {
+         throw new IllegalStateException("Unable to set the sky color", error);
+      }
    }
 
    public static Screen screen(Minecraft minecraft) {

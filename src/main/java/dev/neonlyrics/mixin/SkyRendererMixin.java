@@ -1,6 +1,7 @@
 package dev.neonlyrics.mixin;
 
 import dev.neonlyrics.sky.WorldSky;
+import dev.neonlyrics.util.MinecraftCompat;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.state.level.SkyRenderState;
@@ -15,7 +16,7 @@ public abstract class SkyRendererMixin {
    private void neonlyrics$applySkyColor(ClientLevel level, float partialTick, Camera camera, SkyRenderState state, CallbackInfo ci) {
       int color = WorldSky.vanillaSkyColor();
       if (color >= 0) {
-         state.skyColor = color;
+         MinecraftCompat.setSkyColor(state, color);
       }
    }
 }
