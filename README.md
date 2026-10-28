@@ -27,14 +27,21 @@ SHA-256 for `lyricscord 26.1.jar`:
 
 ## building from source
 
-you can't build this from source with one command yet because the repo does not have the Gradle project files (`build.gradle`, `gradlew`, or `gradle.properties`) in it yet.
+you need Java `25` and Gradle `9.4.0`.
 
-once those files are added, the build command will be:
+the versions used here are:
+
+- Minecraft `26.1`
+- Fabric Loader `0.18.4`
+- Fabric API `0.145.1+26.1`
+- Fabric Loom `1.15.3`
+
+then run:
 
 ```powershell
 git clone https://github.com/neo067982-star/neon-lyrics.git
 cd neon-lyrics
-.\gradlew.bat build
+gradle build
 ```
 
 the finished JAR will be in `build/libs/`.
