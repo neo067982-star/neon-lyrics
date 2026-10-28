@@ -19,7 +19,6 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
-import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -57,26 +56,6 @@ public final class FloatWords {
    private static final Matrix4f SCR = new Matrix4f();
 
    private FloatWords() {
-   }
-
-   public static void renderAfterTranslucent(LevelRenderContext ctx) {
-      Minecraft mc = Minecraft.getInstance();
-      Config c = dev.neonlyrics.NeonLyrics.cfg();
-      if (mc.player == null || mc.level == null || !c.lyricsSky || c.lyricsStyle != 1 || MinecraftCompat.guiHidden(mc)) {
-         return;
-      }
-
-      MultiBufferSource buffers = dev.neonlyrics.compat.Buffers.INSTANCE;
-      renderWorld(
-         mc,
-         c,
-         buffers,
-         new Matrix4f(ctx.poseStack().last().pose()),
-         ctx.levelState().cameraRenderState.pos,
-         mc.getDeltaTracker().getGameTimeDeltaPartialTick(false),
-         true
-      );
-      dev.neonlyrics.compat.Buffers.INSTANCE.flush(ctx.submitNodeCollector());
    }
 
    public static void clear() {
@@ -383,9 +362,8 @@ public final class FloatWords {
          boolean glow = c.lyricsGlow && AutoPerf.allow(3);
          int q = AutoPerf.quality();
          int glowN = q <= 0 ? 0 : (q == 1 ? 2 : 3);
-         // Floating lyrics are an overlay and must not be depth-tested against
-         // the custom sky or other background geometry.
-         DisplayMode mode = DisplayMode.SEE_THROUGH;
+         // Match the song/artist sky overlay: regular sky-pass text with normal depth.
+         DisplayMode mode = DisplayMode.NORMAL;
          double yr = Math.toRadians(mc.player.getViewYRot(pt));
          double pr = Math.toRadians(mc.player.getViewXRot(pt));
          double vfx = -Math.sin(yr) * Math.cos(pr);
@@ -511,20 +489,20 @@ public final class FloatWords {
                   int col = Gfx.lerpColor(9211040, baseCol, bright);
                   int glowBase = c.lyricsGlowColor >= 0 ? WorldSky.LYRIC_COLORS[Math.floorMod(c.lyricsGlowColor, WorldSky.LYRIC_COLORS.length)] : baseCol;
                   int gcol = Gfx.lerpColor(9211040, glowBase, bright);
-                  put(font, buffers, m, shown, 0.7F, 0.9F, -0.5F, 328460, a * 0.55F, mode);
+                  put(font, buffers, m, shown, 0.0F, 1.0F, 0.0F, 328460, a * 0.55F, mode);
                   if (glow) {
                       float ga = a * bright * 0.18F * c.lyricsGlowStrength * (current ? 1.2F : 0.78F);
                      if (glowN > 0) {
                         for (int i = 0; i < glowN; i++) {
                            double ang = i * Math.PI * 2.0 / glowN + (Math.PI / 8);
-                           put(font, buffers, m, shown, (float)Math.cos(ang) * 1.1F, (float)Math.sin(ang) * 1.1F, 0.1F, gcol, ga * 6.0F / glowN, mode);
+                           put(font, buffers, m, shown, (float)Math.cos(ang), (float)Math.sin(ang), 0.04F, gcol, ga * 6.0F / glowN, mode);
                         }
                      } else {
-                        put(font, buffers, m, shown, 0.0F, 0.6F, 0.1F, gcol, ga * 1.6F, mode);
+                        put(font, buffers, m, shown, 0.0F, 0.6F, 0.04F, gcol, ga * 1.6F, mode);
                      }
                   }
 
-                  put(font, buffers, m, shown, 0.0F, 0.0F, 0.3F, col, a, mode);
+                  put(font, buffers, m, shown, 0.0F, 0.0F, 0.1F, col, a, mode);
                }
             }
          }

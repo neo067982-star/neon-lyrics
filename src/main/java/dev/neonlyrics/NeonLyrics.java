@@ -17,7 +17,6 @@ import dev.neonlyrics.hud.StartupIntro;
 import dev.neonlyrics.lyrics.Favorites;
 import dev.neonlyrics.lyrics.SpotifyClient;
 import dev.neonlyrics.sky.SkyRenderer;
-import dev.neonlyrics.sky.FloatWords;
 import dev.neonlyrics.sky.WorldSky;
 import dev.neonlyrics.util.AutoPerf;
 import dev.neonlyrics.util.Fx;
@@ -84,7 +83,6 @@ public final class NeonLyrics implements ClientModInitializer {
       HudElementRegistry.replaceElement(VanillaHudElements.CROSSHAIR, Crosshair::wrap);
       HudElementRegistry.addLast(Identifier.fromNamespaceAndPath("neonlyrics", "beatglow"), BeatGlow::render);
       LevelRenderEvents.COLLECT_SUBMITS.register(WorldSky::render);
-      LevelRenderEvents.AFTER_TRANSLUCENT_FEATURES.register(FloatWords::renderAfterTranslucent);
       SpotifyClient.init();
       StartupIntro.register();
       AttackEntityCallback.EVENT.register((AttackEntityCallback)(player, level, hand, entity, hit) -> {
