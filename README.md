@@ -57,7 +57,7 @@ gradle build `
   -Ploader_version=0.20.1 `
   -Ploom_version=1.15.3 `
   '-Pfabric_api_version=0.155.3+26.1.2' `
-  '-Pmod_version=2.1.1+mc26.1.2' `
+  '-Pmod_version=2.1.2+mc26.1.2' `
   -Parchives_base_name=lyricscord-26.1.2
 ```
 
