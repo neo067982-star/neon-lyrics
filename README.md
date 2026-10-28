@@ -3,22 +3,21 @@
 
 26.1 for now with some extra fixes
 
-## Requirements
+## reqs
 
 - Minecraft `26.1`
 - Fabric Loader `0.17.3` or newer
 - Fabric API
-- Java `25` or newer
 
-## Installation
+## ins
 
-1. Install Fabric Loader for Minecraft `26.1`.
-2. Install Fabric API.
-3. Download `lyricscord 26.1.jar` from the [Releases](../../releases) page.
-4. Put the JAR in your Minecraft `mods` folder.
-5. Launch Minecraft with the Fabric profile.
+1. install Fabric Loader for Minecraft `26.1`.
+2. install Fabric API.
+3. dl `lyricscord 26.1.jar` from the [Releases](../../releases) page.
+4. put the JAR in your Minecraft `mods` folder.
+5. launch Minecraft with the mod.
 
-## Release verification
+## hash since its not a virus
 
 SHA-256 for `lyricscord 26.1.jar`:
 
