@@ -19,6 +19,7 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -56,6 +57,26 @@ public final class FloatWords {
    private static final Matrix4f SCR = new Matrix4f();
 
    private FloatWords() {
+   }
+
+   public static void renderAfterTranslucent(LevelRenderContext ctx) {
+      Minecraft mc = Minecraft.getInstance();
+      Config c = dev.neonlyrics.NeonLyrics.cfg();
+      if (mc.player == null || mc.level == null || !c.lyricsSky || c.lyricsStyle != 1 || MinecraftCompat.guiHidden(mc)) {
+         return;
+      }
+
+      MultiBufferSource buffers = dev.neonlyrics.compat.Buffers.INSTANCE;
+      renderWorld(
+         mc,
+         c,
+         buffers,
+         new Matrix4f(ctx.poseStack().last().pose()),
+         ctx.levelState().cameraRenderState.pos,
+         mc.getDeltaTracker().getGameTimeDeltaPartialTick(false),
+         true
+      );
+      dev.neonlyrics.compat.Buffers.INSTANCE.flush(ctx.submitNodeCollector());
    }
 
    public static void clear() {

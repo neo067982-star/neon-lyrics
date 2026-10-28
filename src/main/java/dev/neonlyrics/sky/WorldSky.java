@@ -301,8 +301,7 @@ public final class WorldSky {
          }
 
          if (c.lyricsStyle == 1) {
-            boolean var10006 = !skyOpen || c.lyricsUnderground;
-            FloatWords.renderWorld(mc, c, buffers, base, ctx.levelState().cameraRenderState.pos, pt, var10006);
+            FloatWords.clear();
          }
 
          if (c.fxSongIntro) {
